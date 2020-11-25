@@ -16,15 +16,11 @@
         android:layout_alignParentBottom="true"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_action_novo_aluno"
-        />
+        android:src="@drawable/ic_action_novo_aluno"/>
     <ListView
         android:id="@+id/activity_lista_alunos_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        >
+        android:layout_alignParentTop="true">
     </ListView>
-
-
 </RelativeLayout>
