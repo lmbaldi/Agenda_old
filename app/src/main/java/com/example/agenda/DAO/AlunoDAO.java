@@ -1,5 +1,7 @@
 package com.example.agenda.DAO;
 
+import androidx.annotation.Nullable;
+
 import com.example.agenda.modelo.Aluno;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class AlunoDAO {
         }
     }
 
+    @Nullable
     private Aluno buscarAlunoPeloId(Aluno aluno) {
         for (Aluno a : alunos) {
             if (a.getId() == aluno.getId()) {
@@ -39,5 +42,12 @@ public class AlunoDAO {
 
     public List<Aluno> todos() {
         return new ArrayList<>(alunos);
+    }
+
+    public void remove(Aluno aluno) {
+        Aluno alunoParaRemover = buscarAlunoPeloId(aluno);
+        if(alunoParaRemover != null){
+            alunos.remove(alunoParaRemover);
+        }
     }
 }
