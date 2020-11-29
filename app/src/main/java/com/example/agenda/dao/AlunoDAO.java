@@ -1,4 +1,4 @@
-package com.example.agenda.DAO;
+package com.example.agenda.dao;
 
 import androidx.annotation.Nullable;
 
