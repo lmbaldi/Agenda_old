@@ -1,18 +1,25 @@
 package com.example.agenda.modelo;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
+@Entity
 public class Aluno implements Serializable {
-
+    @PrimaryKey(autoGenerate = true)
     private int id = 0;
     private  String nome;
+    private  String sobreNome;
     private  String telefone;
     private  String email;
 
-    public Aluno(String nome, String telefone, String email) {
+    @Ignore
+    public Aluno(String nome, String sobreNome, String telefone, String email) {
         this.nome = nome;
+        this.sobreNome = sobreNome;
         this.telefone = telefone;
         this.email = email;
     }
@@ -33,6 +40,14 @@ public class Aluno implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getSobreNome() {
+        return sobreNome;
+    }
+
+    public void setSobreNome(String sobreNome) {
+        this.sobreNome = sobreNome;
     }
 
     public String getTelefone() {
@@ -59,5 +74,9 @@ public class Aluno implements Serializable {
 
     public boolean temIdValido() {
         return id > 0;
+    }
+
+    public String getNomeCompleto() {
+        return nome + " " + sobreNome;
     }
 }
