@@ -8,9 +8,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
-import com.example.agenda.dao.AlunoDAO;
 import com.example.agenda.R;
 import com.example.agenda.database.AgendaDataBase;
 import com.example.agenda.database.dao.RoomAlunoDao;

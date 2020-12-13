@@ -14,6 +14,8 @@ import com.example.agenda.database.converter.ConversorCalendar;
 import com.example.agenda.database.dao.RoomAlunoDao;
 import com.example.agenda.modelo.Aluno;
 
+import static com.example.agenda.database.AgendaMigrations.ALL_MIGRATIONS;
+
 @Database(entities = {Aluno.class}, version = 4, exportSchema = false)
 @TypeConverters({ConversorCalendar.class})
 public abstract class AgendaDataBase extends RoomDatabase {
@@ -27,37 +29,7 @@ public abstract class AgendaDataBase extends RoomDatabase {
         return Room
                 .databaseBuilder(context, AgendaDataBase.class, NOME_BANCO_DE_DADOS)
                 .allowMainThreadQueries()
-                .addMigrations(new Migration(1, 2) {
-                                   @Override
-                                   public void migrate(@NonNull SupportSQLiteDatabase database) {
-                                       database.execSQL("ALTER TABLE Aluno ADD COLUMN sobrenome TEXT");
-                                   }
-                               }, new Migration(2, 3) {
-                                   @Override
-                                   public void migrate(@NonNull SupportSQLiteDatabase database) {
-                                       //criar uma nova tabela com as informacoes desejadas
-                                       database.execSQL("CREATE TABLE IF NOT EXISTS `Aluno_novo` " +
-                                               "(`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                                               "`nome` TEXT, " +
-                                               "`telefone` TEXT, " +
-                                               "`email` TEXT)");
-
-                                       //copiar dados da tabela antiga para a nova
-                                       database.execSQL("INSERT INTO Aluno_novo (id, nome, telefone, email)" +
-                                               "SELECT id, nome, telefone, email FROM Aluno");
-
-                                       //remover tabela antiga
-                                       database.execSQL("DROP TABLE Aluno");
-
-                                       //renomear a tabela nova com o nome da tabela antiga
-                                       database.execSQL("ALTER TABLE Aluno_novo RENAME TO Aluno");
-                                   }
-                               }, new Migration(3,4) {
-                                   @Override
-                                   public void migrate(@NonNull SupportSQLiteDatabase database) {
-                                       database.execSQL("ALTER TABLE Aluno ADD COLUMN momentoDeCadastro INTEGER");
-                                   }
-                               }
+                .addMigrations(ALL_MIGRATIONS
                 ).build();
     }
 
