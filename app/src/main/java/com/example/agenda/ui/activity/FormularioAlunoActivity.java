@@ -23,7 +23,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private static final String TITULO_APPBAR_NOVO_ALUNO = "Novo aluno";
     private static final String TITULO_APPBAR_EDITAR_ALUNO = "Editar Aluno";
     private EditText campoNome;
-    private EditText campoSobreNome;
+//    private EditText campoSobreNome;
     private EditText campoTelefone;
     private EditText campoEmail;
     private RoomAlunoDao dao;
@@ -56,7 +56,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void inicializacaoDosCampos() {
         campoNome = findViewById(R.id.activity_formulario_aluno_nome);
-        campoSobreNome = findViewById(R.id.activity_formulario_aluno_sobrenome);
+//        campoSobreNome = findViewById(R.id.activity_formulario_aluno_sobrenome);
         campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
         campoEmail = findViewById(R.id.activity_formulario_aluno_email);
     }
@@ -75,7 +75,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void preencherCampos() {
         campoNome.setText(aluno.getNome());
-        campoSobreNome.setText(aluno.getSobreNome());
+//        campoSobreNome.setText(aluno.getSobreNome());
         campoTelefone.setText(aluno.getTelefone());
         campoEmail.setText(aluno.getEmail());
     }
@@ -92,12 +92,12 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void preencherAluno() {
         String nome = campoNome.getText().toString();
-        String sobreNome = campoSobreNome.getText().toString();
+//        String sobreNome = campoSobreNome.getText().toString();
         String telefone = campoTelefone.getText().toString();
         String email = campoEmail.getText().toString();
 
         aluno.setNome(nome);
-        aluno.setSobreNome(sobreNome);
+//        aluno.setSobreNome(sobreNome);
         aluno.setTelefone(telefone);
         aluno.setEmail(email);
     }

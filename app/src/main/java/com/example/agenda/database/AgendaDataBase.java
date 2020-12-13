@@ -12,12 +12,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.agenda.database.dao.RoomAlunoDao;
 import com.example.agenda.modelo.Aluno;
 
-@Database(entities = {Aluno.class}, version = 2, exportSchema = false)
+@Database(entities = {Aluno.class}, version = 3, exportSchema = false)
 public abstract class AgendaDataBase extends RoomDatabase {
 
     private static final String NOME_BANCO_DE_DADOS = "agenda.db";
 
-    //devolve uma instancia do RoomAlunoDao
+    //metodo que devolve uma instancia do RoomAlunoDao
     public abstract RoomAlunoDao getRoomAlunoDao();
 
     public static AgendaDataBase getInstance(Context context) {
@@ -29,8 +29,45 @@ public abstract class AgendaDataBase extends RoomDatabase {
                     public void migrate(@NonNull SupportSQLiteDatabase database) {
                         database.execSQL("ALTER TABLE aluno ADD COLUMN sobrenome TEXT");
                     }
-                })
-                .build();
+                }, new Migration(2, 3) {
+                    @Override
+                    public void migrate(@NonNull SupportSQLiteDatabase database) {
+                        //criar uma nova tabela com as informacoes desejadas
+                        database.execSQL("CREATE TABLE IF NOT EXISTS `Aluno_novo` " +
+                                "(`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                                "`nome` TEXT, " +
+                                "`telefone` TEXT, " +
+                                "`email` TEXT)");
+
+                        //copiar dados da tabela antiga para a nova
+                        database.execSQL("INSERT INTO Aluno_novo (id, nome, telefone, email)" +
+                                "SELECT id, nome, telefone, email FROM Aluno" );
+
+                        //remover tabela antiga
+                        database.execSQL("DROP TABLE Aluno");
+
+                        //renomear a tabela nova com o nome da tabela antiga
+                        database.execSQL("ALTER TABLE Aluno_novo RENAME TO Aluno");
+                    }
+                }
+             ).build();
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
