@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.agenda.R;
 import com.example.agenda.database.AgendaDataBase;
-import com.example.agenda.database.dao.RoomAlunoDao;
+import com.example.agenda.database.dao.RoomAlunoDAO;
 import com.example.agenda.modelo.Aluno;
 
 import static com.example.agenda.ui.activity.ConstantesActivities.CHAVE_ALUNO;
@@ -22,9 +22,10 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private static final String TITULO_APPBAR_EDITAR_ALUNO = "Editar Aluno";
     private EditText campoNome;
 //    private EditText campoSobreNome;
-    private EditText campoTelefone;
+    private EditText campoTelefoneFixo;
+    private EditText campoTelefoneCelular;
     private EditText campoEmail;
-    private RoomAlunoDao dao;
+    private RoomAlunoDAO dao;
     private Aluno aluno;
 
     @Override
@@ -55,7 +56,8 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private void inicializacaoDosCampos() {
         campoNome = findViewById(R.id.activity_formulario_aluno_nome);
 //        campoSobreNome = findViewById(R.id.activity_formulario_aluno_sobrenome);
-        campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
+        campoTelefoneFixo = findViewById(R.id.activity_formulario_aluno_telefone_fixo);
+        campoTelefoneCelular = findViewById(R.id.activity_formulario_aluno_telefone_celular);
         campoEmail = findViewById(R.id.activity_formulario_aluno_email);
     }
 
@@ -74,7 +76,8 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private void preencherCampos() {
         campoNome.setText(aluno.getNome());
 //        campoSobreNome.setText(aluno.getSobreNome());
-        campoTelefone.setText(aluno.getTelefone());
+//        campoTelefoneFixo.setText(aluno.getTelefoneFixo());
+//        campoTelefoneCelular.setText(aluno.getTelefoneCelular());
         campoEmail.setText(aluno.getEmail());
     }
 
@@ -91,12 +94,15 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private void preencherAluno() {
         String nome = campoNome.getText().toString();
 //        String sobreNome = campoSobreNome.getText().toString();
-        String telefone = campoTelefone.getText().toString();
+        String telefoneFixo = campoTelefoneFixo.getText().toString();
+        String telefoneCelular = campoTelefoneCelular.getText().toString();
+
         String email = campoEmail.getText().toString();
 
         aluno.setNome(nome);
 //        aluno.setSobreNome(sobreNome);
-        aluno.setTelefone(telefone);
+//        aluno.setTelefoneFixo(telefoneFixo);
+//        aluno.setTelefoneCelular(telefoneCelular);
         aluno.setEmail(email);
     }
 }

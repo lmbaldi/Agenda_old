@@ -9,14 +9,14 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 
 import com.example.agenda.database.AgendaDataBase;
-import com.example.agenda.database.dao.RoomAlunoDao;
+import com.example.agenda.database.dao.RoomAlunoDAO;
 import com.example.agenda.modelo.Aluno;
 import com.example.agenda.ui.adapter.ListaAlunosAdapter;
 
 public class ListaAlunosView {
 
     private final ListaAlunosAdapter adapter;
-    private final RoomAlunoDao dao;
+    private final RoomAlunoDAO dao;
     private final Context context;
 
     public ListaAlunosView(Context context) {
