@@ -9,20 +9,20 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 
 import com.example.agenda.database.AgendaDataBase;
-import com.example.agenda.database.dao.RoomAlunoDAO;
+import com.example.agenda.database.dao.AlunoDAO;
 import com.example.agenda.modelo.Aluno;
 import com.example.agenda.ui.adapter.ListaAlunosAdapter;
 
 public class ListaAlunosView {
 
     private final ListaAlunosAdapter adapter;
-    private final RoomAlunoDAO dao;
+    private final AlunoDAO dao;
     private final Context context;
 
     public ListaAlunosView(Context context) {
         this.context = context;
         this.adapter = new ListaAlunosAdapter(this.context);
-        dao =  AgendaDataBase.getInstance(context).getRoomAlunoDao();
+        dao =  AgendaDataBase.getInstance(context).getAlunoDao();
     }
 
     public void atualizarAlunos() {

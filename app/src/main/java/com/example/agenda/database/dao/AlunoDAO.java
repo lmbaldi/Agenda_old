@@ -11,10 +11,10 @@ import com.example.agenda.modelo.Aluno;
 import java.util.List;
 
 @Dao
-public interface RoomAlunoDAO {
+public interface AlunoDAO {
 
     @Insert
-    void salvar(Aluno aluno);
+    Long salvar(Aluno aluno);
 
     @Query("SELECT * FROM aluno")
     List<Aluno> listar();

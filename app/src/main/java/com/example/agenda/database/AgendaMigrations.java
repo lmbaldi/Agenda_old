@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.agenda.modelo.TipoTelefone;
+
 class AgendaMigrations {
 
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
@@ -64,6 +66,40 @@ class AgendaMigrations {
         }
     };
 
-    static final Migration[] ALL_MIGRATIONS = {MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5};
+    public static final Migration MIGRATION_5_6 = new Migration(5,6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `Aluno_novo` (" +
+                    "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "`nome` TEXT, " +
+                    "`email` TEXT, " +
+                    "`momentoDeCadastro` INTEGER)");
+
+            //copiar dados da tabela antiga para a nova
+            database.execSQL("INSERT INTO Aluno_novo (id, nome,  email, momentoDeCadastro)" +
+                    " SELECT id, nome, email, momentoDeCadastro FROM Aluno");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `Telefone` (" +
+                    "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "`alunoId` INTEGER NOT NULL, " +
+                    "`numero` TEXT, " +
+                    "`tipo` TEXT)");
+
+            //copiar dados(nr de telefone que jah existem) da tabela antiga para a nova
+            database.execSQL("INSERT INTO Telefone (numero, alunoId)" +
+                    " SELECT telelfoneFixo, id FROM Aluno");
+
+            database.execSQL("UPDATE Telefone SET tipo= ?", new TipoTelefone[] {TipoTelefone.FIXO});
+
+            //remover tabela antiga
+            database.execSQL(" DROP TABLE Aluno");
+
+            //renomear a tabela nova com o nome da tabela antiga
+            database.execSQL(" ALTER TABLE Aluno_novo RENAME TO Aluno");
+
+        }
+    };
+
+    static final Migration[] ALL_MIGRATIONS = {MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6};
 }
 

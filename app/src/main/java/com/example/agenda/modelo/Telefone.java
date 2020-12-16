@@ -10,6 +10,8 @@ public class Telefone {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private String numero;
+    private TipoTelefone tipo;
     @ForeignKey(entity = Aluno.class,
             parentColumns = "id",
             childColumns = "alunoId",
@@ -17,8 +19,11 @@ public class Telefone {
             onDelete = ForeignKey.CASCADE)
     @ColumnInfo(name = "alunoId")
     private int alunoId;
-    private String numero;
-    private TipoTelefone tipo;
+
+    public Telefone(String numero, TipoTelefone tipo) {
+        this.numero = numero;
+        this.tipo = tipo;
+    }
 
     public int getId() {
         return id;
