@@ -8,6 +8,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 
+import com.example.agenda.asynctask.BuscarAlunosTask;
+import com.example.agenda.asynctask.RemoverAlunoTask;
 import com.example.agenda.database.AgendaDataBase;
 import com.example.agenda.database.dao.AlunoDAO;
 import com.example.agenda.modelo.Aluno;
@@ -26,7 +28,11 @@ public class ListaAlunosView {
     }
 
     public void atualizarAlunos() {
-        adapter.atualizar(dao.listar());
+        new BuscarAlunosTask(dao, adapter).execute();
+    }
+
+    private void remover(Aluno aluno) {
+        new RemoverAlunoTask(dao, adapter, aluno).execute();
     }
 
     public void confirmarRemocao(@NonNull final MenuItem item) {
@@ -40,11 +46,6 @@ public class ListaAlunosView {
                 })
                 .setNegativeButton("Nao", null)
                 .show();
-    }
-
-    private void remover(Aluno aluno) {
-        dao.remover(aluno);
-        adapter.remover(aluno);
     }
 
     public void configuraAdapter(ListView listaDeAlunos) {

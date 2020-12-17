@@ -44,7 +44,7 @@ public class AlunoDAO {
         return new ArrayList<>(alunos);
     }
 
-    public void remove(Aluno aluno) {
+    public void remover(Aluno aluno) {
         Aluno alunoParaRemover = buscarAlunoPeloId(aluno);
         if(alunoParaRemover != null){
             alunos.remove(alunoParaRemover);
